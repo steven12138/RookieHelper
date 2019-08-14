@@ -75,10 +75,13 @@ class App:
         if (st[0:17] == "状态：         尚未被审阅"):
             pass
         else:
-            if self.f==0:
-                tkinter.messagebox.showwarning('提示', '已经完成审阅')
-            self.f=1
-            now="已经完成审阅"
+            if (st[0:17] == "状态：         正在被审阅"):
+                pass
+            else:
+                if self.f==0:
+                    tkinter.messagebox.showwarning('提示', '已经完成审阅')
+                self.f=1
+                now="已经完成审阅"
         now=time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime(time.time()))+" "+st[0:17]
         self.label.configure(text = now)
         sec=120
