@@ -72,21 +72,26 @@ class App:
         soup = BeautifulSoup(r.text, 'lxml')
         patternNo = "\u5c1a\u672a\u88ab\u5ba1\u9605"
         patternIng = "\u6b63\u5728\u88ab\u5ba1\u9605"
-        st = "".join(soup.select('div[class="pull-right"]')[0])
-        if (not re.search(patternNo , st[0:17]) == None):
-            pass
+        pull = soup.select('div[class="pull-right"]')
+        if(not len(pull) and not f):
+            tkinter.messagebox.showwarning('提示', '你还没有提问！先去提个问题吧~')
+            exit(0)
         else:
-            if (not re.search(patternIng , st[0:17]) == None):
-                pass
+            print(pull)
+            st = "".join(pull[0])
+            if (not re.search(patternNo , st[0:17]) == None):
+                now=time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime(time.time()))+" "+"还没被审阅呢~"
             else:
-                if self.f==0:
-                    tkinter.messagebox.showwarning('提示', '已经完成审阅')
-                    print('\a')
-                self.f=1
-                now="已经完成审阅"
-        now=time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime(time.time()))+" "+st[0:17]
-        self.label.configure(text = now)
-        sec=60
-        self.root.after(sec*1000,self.update_clock)
+                if (not re.search(patternIng , st[0:17]) == None):
+                    now=time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime(time.time()))+" "+"正在审阅中呢，别急~"
+                else:
+                    if self.f==0:
+                        tkinter.messagebox.showwarning('提示', '已经完成审阅啦！')
+                        print('\a')
+                    self.f=1
+                    now=time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime(time.time()))+" "+"已经完成审阅啦~"
+            self.label.configure(text = now)
+            sec=60
+            self.root.after(sec*1000,self.update_clock)
 if f:
     app = App()
