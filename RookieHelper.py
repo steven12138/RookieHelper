@@ -4,12 +4,7 @@ import time
 import tkinter.messagebox
 import tkinter as tk
 import hashlib
-<<<<<<< Updated upstream
-
-#
-=======
 import re
->>>>>>> Stashed changes
 
 
 usr_name=""
