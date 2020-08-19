@@ -4,8 +4,12 @@ import time
 import tkinter.messagebox
 import tkinter as tk
 import hashlib
+<<<<<<< Updated upstream
 
 #
+=======
+import re
+>>>>>>> Stashed changes
 
 
 usr_name=""
@@ -67,25 +71,27 @@ class App:
         self.root.mainloop()
 
     def update_clock(self):
-        url = "http://rookie.pkuschool.edu.cn/setup-issues"
+        url = "http://rookie.pkuschool.edu.cn/stup-issues"
         now = time.strftime("%H:%M:%S")
         r = self.x.get(url)
         soup = BeautifulSoup(r.text, 'lxml')
-        pattern = r"尚未被审阅"
+        patternNo = "\u5c1a\u672a\u88ab\u5ba1\u9605"
+        patternIng = "\u6b63\u5728\u88ab\u5ba1\u9605"
         st = "".join(soup.select('div[class="pull-right"]')[0])
-        if (st[0:17] == "状态：         尚未被审阅"):
+        if (not re.search(patternNo , st[0:17]) == None):
             pass
         else:
-            if (st[0:17] == "状态：         正在被审阅"):
+            if (not re.search(patternIng , st[0:17]) == None):
                 pass
             else:
                 if self.f==0:
                     tkinter.messagebox.showwarning('提示', '已经完成审阅')
+                    print('\a')
                 self.f=1
                 now="已经完成审阅"
         now=time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime(time.time()))+" "+st[0:17]
         self.label.configure(text = now)
-        sec=120
+        sec=60
         self.root.after(sec*1000,self.update_clock)
 if f:
     app = App()
