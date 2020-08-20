@@ -66,14 +66,14 @@ class App:
         self.root.mainloop()
 
     def update_clock(self):
-        url = "http://rookie.pkuschool.edu.cn/stup-issues"
+        url = "http://rookie.pkuschool.edu.cn/setup-issues"
         now = time.strftime("%H:%M:%S")
         r = self.x.get(url)
         soup = BeautifulSoup(r.text, 'lxml')
         patternNo = "\u5c1a\u672a\u88ab\u5ba1\u9605"
         patternIng = "\u6b63\u5728\u88ab\u5ba1\u9605"
-        pull = soup.select('div[class="pull-right"]')
-        if(not len(pull) and not f):
+        pull = soup.select('div[claass="pull-right"]')
+        if(not len(pull) and f):
             tkinter.messagebox.showwarning('提示', '你还没有提问！先去提个问题吧~')
             exit(0)
         else:
@@ -94,4 +94,4 @@ class App:
             sec=60
             self.root.after(sec*1000,self.update_clock)
 if f:
-    app = App()
+    app = App()s
